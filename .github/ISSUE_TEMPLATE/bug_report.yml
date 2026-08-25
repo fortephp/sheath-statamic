@@ -1,0 +1,68 @@
+name: Report a bug
+description: Tell us about an incorrect diagnostic, missed error, or Statamic integration problem.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the Statamic plugin. A small Blade or
+        Antlers example and the diagnostic output help us investigate quickly.
+
+  - type: textarea
+    id: template
+    attributes:
+      label: Blade or Antlers example
+      description: Share the smallest template that still shows the problem.
+      render: blade
+      placeholder: |
+        <s:collection from="articles">
+            {{ title }}
+        </s:collection>
+    validations:
+      required: true
+
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Tell us what you expected and what Sheath reported instead. Include the rule ID and message when available.
+      placeholder: |
+        Expected: no diagnostic for this valid Statamic tag.
+        Actual: statamic-tag-method-exists reported the tag on line 1.
+    validations:
+      required: true
+
+  - type: textarea
+    id: statamic-setup
+    attributes:
+      label: Relevant Statamic setup
+      description: Include custom tags, add-ons, collections, taxonomies, forms, or other project state involved in the problem.
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Relevant Sheath configuration
+      description: Include the preset list and Statamic rule overrides. Leave blank if you use the documented defaults.
+      render: php
+
+  - type: textarea
+    id: command-output
+    attributes:
+      label: Command and output
+      description: Share the lint command and complete diagnostic output, if available.
+      render: shell
+
+  - type: textarea
+    id: versions
+    attributes:
+      label: Versions
+      description: Share your PHP, Laravel, Statamic, Sheath, and Statamic plugin versions.
+      render: text
+      placeholder: |
+        PHP 8.4
+        Laravel 12
+        statamic/cms 6.x
+        fortephp/sheath 1.x
+        fortephp/sheath-statamic 1.x
+    validations:
+      required: true

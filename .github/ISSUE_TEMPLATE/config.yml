@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/fortephp/sheath-statamic#readme
+    about: Read the installation, configuration, and usage guide.
+  - name: Security issue
+    url: https://github.com/fortephp/sheath-statamic/security/advisories/new
+    about: Privately report a security vulnerability.

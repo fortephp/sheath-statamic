@@ -1,0 +1,44 @@
+name: Request an improvement
+description: Suggest a new Statamic rule, diagnostic, or integration improvement.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. A concrete Statamic Blade or Antlers example helps
+        us understand the behavior you would like to see.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem should this solve?
+      description: Describe the Statamic template mistake or workflow limitation that prompted the request.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to happen?
+      description: Describe the rule, diagnostic, or integration behavior you have in mind.
+    validations:
+      required: true
+
+  - type: textarea
+    id: template
+    attributes:
+      label: Blade or Antlers example
+      description: Show the relevant template and the result you would expect, if applicable.
+      render: blade
+
+  - type: textarea
+    id: statamic-source
+    attributes:
+      label: Relevant Statamic behavior
+      description: Link to the Statamic documentation or compiler/runtime behavior this request is based on, if applicable.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Share any configuration, workarounds, or other approaches you have tried.

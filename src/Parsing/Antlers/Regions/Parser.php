@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Forte\Sheath\Statamic\Parsing\Antlers\Regions;
+
+use Forte\Ast\Document\Document;
+use Statamic\View\Antlers\Language\Parser\DocumentParser;
+use Throwable;
+use WeakMap;
+
+/** @internal */
+final class Parser
+{
+    /** @var WeakMap<Document, array<string, ParseResult>> */
+    private WeakMap $results;
+
+    public function __construct()
+    {
+        $this->results = new WeakMap;
+    }
+
+    public function parse(Document $document, Region $region, string $body): ParseResult
+    {
+        $key = $region->contentStartOffset.':'.$region->contentEndOffset;
+        $documentResults = $this->results[$document] ?? [];
+        if (isset($documentResults[$key])) {
+            return $documentResults[$key];
+        }
+
+        try {
+            $result = ParseResult::success(array_values((new DocumentParser)->parse($body)));
+        } catch (Throwable $exception) {
+            $result = ParseResult::failure($exception);
+        }
+
+        $documentResults[$key] = $result;
+        $this->results[$document] = $documentResults;
+
+        return $result;
+    }
+}
