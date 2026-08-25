@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionException;
-use ReflectionIntersectionType;
 use ReflectionNamedType;
 use ReflectionType;
 use ReflectionUnionType;
@@ -285,8 +284,9 @@ final class TagCatalog
     }
 
     /**
-     * @param class-string $class
+     * @param  class-string  $class
      * @return list<ReflectionClass<object>>
+     *
      * @throws ReflectionException
      */
     private function classHierarchy(string $class): array

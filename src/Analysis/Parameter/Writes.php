@@ -12,9 +12,7 @@ final class Writes
     private array $writes = [];
 
     /**
-     * @param string $name
-     * @param 'empty'|'zero'|'truthy'|'dynamic' $value
-     * @param string|null $literal
+     * @param  'empty'|'zero'|'truthy'|'dynamic'  $value
      */
     public function add(string $name, string $value, ?string $literal): void
     {

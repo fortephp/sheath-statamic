@@ -7,10 +7,7 @@ namespace Forte\Sheath\Statamic\Analysis\Parameter;
 final readonly class Write
 {
     /**
-     * @param int $sequence
-     * @param string|null $name
-     * @param 'empty'|'zero'|'truthy'|'dynamic' $value
-     * @param string|null $literal
+     * @param  'empty'|'zero'|'truthy'|'dynamic'  $value
      */
     public function __construct(
         public int $sequence,

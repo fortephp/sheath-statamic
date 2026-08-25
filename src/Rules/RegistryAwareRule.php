@@ -56,8 +56,7 @@ abstract class RegistryAwareRule extends BaseRule implements SharesCacheContext
     }
 
     /**
-     * @param StaticSource $parameters
-     * @param array{name: string, aliases: list<string>, allowZero: bool, strategy?: 'any'} $requirement
+     * @param  array{name: string, aliases: list<string>, allowZero: bool, strategy?: 'any'}  $requirement
      * @return 'missing'|'satisfied'|'unknown'
      */
     protected function requiredParameterState(StaticSource $parameters, array $requirement): string
@@ -86,8 +85,6 @@ abstract class RegistryAwareRule extends BaseRule implements SharesCacheContext
     }
 
     /**
-     * @param StaticValue $parameter
-     * @param bool $allowZero
      * @return 'missing'|'satisfied'|'unknown'
      */
     private function staticParameterState(StaticValue $parameter, bool $allowZero): string

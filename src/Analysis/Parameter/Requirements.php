@@ -124,12 +124,10 @@ final class Requirements
     }
 
     /**
-     * @param string $name
-     * @param list<string> $aliases
-     * @param bool $allowZero
-     * @param list<string|null>|null $methods
-     * @param list<string> $excludedMethods
-     * @param 'any'|null $strategy
+     * @param  list<string>  $aliases
+     * @param  list<string|null>|null  $methods
+     * @param  list<string>  $excludedMethods
+     * @param  'any'|null  $strategy
      * @return array{name: string, aliases: list<string>, allowZero: bool, methods: list<string|null>|null, excludedMethods: list<string>, strategy: 'any'|null}
      */
     private static function definition(

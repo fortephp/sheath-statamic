@@ -277,12 +277,8 @@ final class CallScanner
     }
 
     /**
-     * @param TokenStream $stream
-     * @param string $methodName
-     * @param string $lower
-     * @param list<array{start: int, end: int}> $arguments
-     * @param Writes $writes
-     * @param 'empty'|'truthy'|'dynamic' $pairedContentState
+     * @param  list<array{start: int, end: int}>  $arguments
+     * @param  'empty'|'truthy'|'dynamic'  $pairedContentState
      * @return 'fetch'|'iteration'|null
      */
     private function applyMethod(
