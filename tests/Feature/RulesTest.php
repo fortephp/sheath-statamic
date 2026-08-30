@@ -8,6 +8,7 @@ use Forte\Sheath\SheathManager;
 use Forte\Sheath\Statamic\Tests\Fixtures\FixtureTag;
 use Statamic\Tags\Concerns\GetsQueryResults;
 use Statamic\Tags\Tags;
+use Statamic\View\Antlers\Language\Analyzers\NodeTypeAnalyzer;
 
 it('reports every structural Antlers marker failure at the offending delimiter', function (string $source, int $count): void {
     $violations = lintStatamic('statamic-antlers-region-pairs', $source);
@@ -35,13 +36,25 @@ it('validates only structurally sound Antlers bodies', function (): void {
         ->and(lintStatamic('statamic-antlers-region-syntax', '@antlers @antlers {{ if }} @endantlers @endantlers'))->toHaveCount(0);
 });
 
-it('turns unexpected Antlers parser failures into a bounded syntax violation', function (): void {
+it('initializes the Antlers parser environment before validating a region', function (): void {
+    $environment = NodeTypeAnalyzer::$environmentDetails;
+    NodeTypeAnalyzer::$environmentDetails = null;
+
+    try {
+        $valid = "@antlers\n    Hello - {{ world }}\n@endantlers";
+
+        expect(lintStatamic('statamic-antlers-region-syntax', $valid))->toHaveCount(0)
+            ->and(lintStatamic('statamic-antlers-region-syntax', '@antlers {{ if }} @endantlers'))->toHaveCount(1);
+    } finally {
+        NodeTypeAnalyzer::$environmentDetails = $environment;
+    }
+});
+
+it('skips unexpected Antlers parser failures that do not establish invalid syntax', function (): void {
     $source = '@antlers({{@endantlers';
     $violations = lintStatamic('statamic-antlers-region-syntax', $source);
 
-    expect($violations)->toHaveCount(1)
-        ->and($violations[0]->start->offset)->toBeGreaterThanOrEqual(0)
-        ->and($violations[0]->end->offset)->toBeLessThanOrEqual(strlen($source));
+    expect($violations)->toHaveCount(0);
 });
 
 it('uses the inclusive Antlers parser end offset for exact ASCII and UTF-8 ranges', function (string $source, int $startCharacter): void {

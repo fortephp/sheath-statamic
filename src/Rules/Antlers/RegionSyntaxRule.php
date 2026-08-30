@@ -12,7 +12,6 @@ use Forte\Sheath\Statamic\Parsing\Antlers\Regions\Region;
 use Forte\Sheath\Statamic\Parsing\Antlers\Regions\Scanner;
 use Forte\Sheath\Statamic\Rules\BaseRule;
 use Statamic\View\Antlers\Language\Exceptions\SyntaxErrorException;
-use Throwable;
 
 #[RequiresPackage('statamic/cms', '^6.0')]
 final class RegionSyntaxRule extends BaseRule
@@ -50,14 +49,6 @@ final class RegionSyntaxRule extends BaseRule
             $failure = app(Parser::class)->parse($document, $region, $body)->failure;
             if ($failure instanceof SyntaxErrorException) {
                 $this->reportSyntaxError($failure, $region, $body, $source, $context);
-            } elseif ($failure instanceof Throwable) {
-                $start = min($region->contentStartOffset, $region->contentEndOffset);
-                $end = min(max($start + 1, $region->contentEndOffset), strlen($source));
-                $context->reportAt(
-                    $this->originalPosition($source, $start),
-                    $this->originalPosition($source, $end),
-                    'Invalid Antlers syntax: malformed Antlers expression.',
-                );
             }
         }
     }
